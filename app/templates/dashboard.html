@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRM Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h1 class="logo">CRM Pro</h1>
+      <nav>
+        <a href="#" class="nav-link active">Dashboard</a>
+        <a href="#" class="nav-link">Clientes</a>
+        <a href="#" class="nav-link">Pipeline</a>
+        <a href="#" class="nav-link">Reportes</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <header class="topbar card">
+        <div>
+          <p class="eyebrow">Resumen general</p>
+          <h2>Bienvenido, Equipo Comercial</h2>
+        </div>
+        <button class="primary-btn">+ Nuevo lead</button>
+      </header>
+
+      <section class="kpis">
+        {% for stage in pipeline_stages %}
+          <article class="card kpi-card">
+            <p class="eyebrow">{{ stage.name }}</p>
+            <h3>{{ stage.count }}</h3>
+            <p class="amount">{{ stage.amount }}</p>
+          </article>
+        {% endfor %}
+      </section>
+
+      <section class="columns">
+        <article class="card">
+          <h3>Actividad reciente</h3>
+          <ul class="activity-list">
+            {% for item in activities %}
+              <li>
+                <strong>{{ item.client }}</strong>
+                <p>{{ item.task }}</p>
+                <span>{{ item.time }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Objetivo del mes</h3>
+          <p class="goal-amount">$95,000</p>
+          <div class="progress-wrap">
+            <div class="progress-fill"></div>
+          </div>
+          <p class="helper">68% completado · 12 días restantes</p>
+        </article>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
